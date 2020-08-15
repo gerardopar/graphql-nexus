@@ -16,6 +16,7 @@ scalar Json
 
 type Mutation {
   createDraft(body: String!, title: String!): Post!
+  publish(postId: Int!): Post!
 }
 
 type Post {
@@ -27,4 +28,5 @@ type Post {
 
 type Query {
   drafts: [Post!]!
+  posts: [Post!]!
 }

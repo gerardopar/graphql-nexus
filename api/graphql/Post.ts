@@ -11,7 +11,7 @@ schema.objectType({
     },
 })
 
-// Post Query 
+// Post Query (query all posts that are not published)
 schema.extendType({
     type: 'Query',
     definition(t) {
@@ -21,6 +21,21 @@ schema.extendType({
             list: true, // [Post] <- list type 
             resolve(_root, args, ctx) { // access context
                 return ctx.db.posts.filter((p) => p.published === false); // filter posts
+            }
+        })
+    },
+});
+
+// Post Query (query all posts that are published)
+schema.extendType({
+    type: 'Query',
+    definition(t) {
+        t.field('posts', { // field name
+            nullable: false, // clients will always get a value for this field
+            type: 'Post', // field type
+            list: true, // [Post] <- list type 
+            resolve(_root, args, ctx) { // access context
+                return ctx.db.posts.filter((p) => p.published === true); // filter posts
             }
         })
     },
