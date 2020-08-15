@@ -50,3 +50,23 @@ schema.extendType({
         })
     }
 });
+
+// Post Mutation (publish a draft...)
+schema.extendType({
+    type: 'Mutation',
+    definition(t) {
+        t.field('publish', {
+            type: 'Post',
+            nullable: false,
+            args: { // mutation arguments
+                postId: schema.intArg({ required: true })
+            },
+            resolve(_root, args, ctx) { // access context
+                const draft = ctx.db.posts.find((post) => post.id === args.postId);
+                if (!draft) throw new Error('Could not find draft with id ' + args.postId);
+                draft.published = true;
+                return draft; // return the draft updated
+            }
+        })
+    }
+});
