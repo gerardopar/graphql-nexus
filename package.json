@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "nexus dev",
     "build": "nexus build",
+    "db:save": "yarn prisma migrate save --experimental",
+    "db:up": "yarn prisma migrate up --experimental",
     "test": "jest"
   },
   "jest": {
