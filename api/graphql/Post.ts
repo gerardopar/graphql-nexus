@@ -20,7 +20,8 @@ schema.extendType({
             type: 'Post', // field type
             list: true, // [Post] <- list type 
             resolve(_root, args, ctx) { // access context
-                return ctx.db.posts.filter((p) => p.published === false); // filter posts
+                // return ctx.db.posts.filter((p) => p.published === false); // filter posts from mock db
+                return ctx.db.post.findMany({ where: { published: false } });  // prisma client CRUD
             }
         })
     },
@@ -35,7 +36,8 @@ schema.extendType({
             type: 'Post', // field type
             list: true, // [Post] <- list type 
             resolve(_root, args, ctx) { // access context
-                return ctx.db.posts.filter((p) => p.published === true); // filter posts
+                // return ctx.db.posts.filter((p) => p.published === true); // filter posts from mock db
+                return ctx.db.post.findMany({ where: { published: true } }); // prisma client CRUD
             }
         })
     },
@@ -54,13 +56,14 @@ schema.extendType({
             },
             resolve(_root, args, ctx) { // access context
                 const draft = {  // draft object 
-                    id: ctx.db.posts.length + 1,
+                    // id: ctx.db.posts.length + 1, // id is auto incremented by postgres
                     title: args.title, // args.title
                     body: args.body, // args.body
                     published: false
                 };
-                ctx.db.posts.push(draft); // push new draft into db.ctx.posts
-                return draft; // return the draft added
+                // ctx.db.posts.push(draft); // push new draft into mock db
+                // return draft; // return the draft added
+                return ctx.db.post.create({ data: draft }); // prisma client CRUD
             }
         })
     }
@@ -77,10 +80,16 @@ schema.extendType({
                 postId: schema.intArg({ required: true })
             },
             resolve(_root, args, ctx) { // access context
-                const draft = ctx.db.posts.find((post) => post.id === args.postId);
-                if (!draft) throw new Error('Could not find draft with id ' + args.postId);
-                draft.published = true;
-                return draft; // return the draft updated
+                // const draft = ctx.db.posts.find((post) => post.id === args.postId);
+                // if (!draft) throw new Error('Could not find draft with id ' + args.postId);
+                // draft.published = true;
+                // return draft; // return the draft updated
+                return ctx.db.post.update({ // prisma client CRUD
+                    where: { id: args.postId },
+                    data: {
+                        published: true,
+                    },
+                });
             }
         })
     }
