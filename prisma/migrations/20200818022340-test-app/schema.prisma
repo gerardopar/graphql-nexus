@@ -3,7 +3,7 @@
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url = "***"
 }
 
 generator client {
@@ -25,14 +25,12 @@ model Post {
   published Boolean
   comments  Comment[]
   authorId  Int? 
-  author    User?   @relation(fields: [authorId], references: [id])
+  author    User? @relation(fields: [authorId], references: [id])
 }
 
 model Comment {
   id        Int     @id @default(autoincrement())
   text      String
   authorId  Int? 
-  author    User?   @relation(fields: [authorId], references: [id])
-  postId    Int?  
-  post      Post?   @relation(fields: [postId], references: [id])
+  author    User? @relation(fields: [authorId], references: [id])
 }
