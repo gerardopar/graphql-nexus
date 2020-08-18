@@ -10,3 +10,33 @@ schema.objectType({
         t.model.comments()
     }
 });
+
+schema.extendType({
+    type: 'Query',
+    definition(t) {
+        t.crud.user()
+        t.crud.users()
+    }
+});
+
+schema.extendType({
+    type: 'Mutation',
+    definition(t) {
+        t.crud.createOneUser()
+    }
+});
+
+// schema.queryType({
+//     definition(t) {
+//         t.crud.user()
+//         t.crud.users({
+//             ordering: true,
+//         })
+//     },
+// })
+
+// schema.mutationType({
+//     definition(t) {
+//         t.crud.createOneUser()
+//     },
+// })

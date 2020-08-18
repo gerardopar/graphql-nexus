@@ -11,3 +11,33 @@ schema.objectType({
         t.model.post()
     }
 });
+
+schema.extendType({
+    type: 'Query',
+    definition(t) {
+        t.crud.comment()
+        t.crud.comments()
+    }
+});
+
+schema.extendType({
+    type: 'Mutation',
+    definition(t) {
+        t.crud.createOneComment()
+    }
+});
+
+// schema.queryType({
+//     definition(t) {
+//         t.crud.comment()
+//         t.crud.comments({
+//             ordering: true,
+//         })
+//     },
+// })
+
+// schema.mutationType({
+//     definition(t) {
+//         t.crud.createOneComment()
+//     },
+// })
