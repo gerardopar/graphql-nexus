@@ -9,6 +9,7 @@ export function createTestContext() { // helper function to initialize testing
     });
 
     afterAll(async () => {
+        await ctx.app.db.client.disconnect()
         await ctx.app.stop()                                 
     });
 

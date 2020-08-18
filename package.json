@@ -19,15 +19,17 @@
         }
       }
     },
-    "testEnvironment": "node"
+    "testEnvironment": "./tests/nexus-test-environment.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@types/jest": "^26.0.10",
+    "nanoid": "^3.1.12",
     "nexus": "^0.26.1",
     "nexus-plugin-prisma": "^0.17.0",
+    "pg": "^8.3.0",
     "ts-jest": "^26.2.0"
   },
   "devDependencies": {
