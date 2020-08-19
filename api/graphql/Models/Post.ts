@@ -71,7 +71,7 @@ schema.extendType({
                 title: schema.stringArg({ required: true }),
                 body: schema.stringArg({ required: true })
             },
-            resolve(_root, args, ctx) {
+            resolve(_root, args, ctx) { // mutation resolver
                 return ctx.db.post.create({ data: {
                     title: args.title,
                     body: args.body,
@@ -81,7 +81,7 @@ schema.extendType({
                             id: args.authorId
                         }
                     }
-                }}); // prisma client CRUD
+                }});
             }
         });
     }
@@ -136,7 +136,7 @@ schema.extendType({
             }
         });
     }
-})
+});
 
 // delete one draft...
 schema.extendType({

@@ -1,7 +1,7 @@
 import { schema } from 'nexus';
 
 schema.objectType({ // * object Type based off (schema.prisma)
-    name: 'User',
+    name: 'User', // type name
     definition(t) { // type definitions
         t.model.id()
         t.model.firstName()

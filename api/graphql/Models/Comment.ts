@@ -1,7 +1,7 @@
 import { schema } from 'nexus';
 
 schema.objectType({ // * object Type based off (schema.prisma)
-    name: 'Comment',
+    name: 'Comment', // type name
     definition(t) { // type definitions
         t.model.id()
         t.model.text()
@@ -51,7 +51,7 @@ schema.extendType({
             }
         });
     }
-})
+});
 
 // schema.queryType({ // * auto generated queries
 //     definition(t) {
