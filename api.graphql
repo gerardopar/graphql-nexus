@@ -61,8 +61,10 @@ type Mutation {
   deleteOneComment(where: CommentWhereUniqueInput!): Comment
   deleteOneDraft(draftId: Int!): Post!
   deleteOnePost(where: PostWhereUniqueInput!): Post
+  deleteOneUser(where: UserWhereUniqueInput!): User
   publishOneDraft(draftId: Int!): Post!
   updateOneComment(commentId: Int!, text: String!): Comment!
+  updateOnePost(body: String!, postId: Int!, title: String!): Post!
 }
 
 type Post {

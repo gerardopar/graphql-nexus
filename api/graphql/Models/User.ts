@@ -23,5 +23,6 @@ schema.extendType({ // * auto generated mutations
     type: 'Mutation',
     definition(t) {
         t.crud.createOneUser()
+        t.crud.deleteOneUser()
     }
 });

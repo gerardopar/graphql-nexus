@@ -111,6 +111,33 @@ schema.extendType({
     }
 });
 
+// * mutation to update a post
+schema.extendType({
+    type: 'Mutation',
+    definition(t) {
+        t.field('updateOnePost', { // mutation name
+            type: 'Post', // field type
+            nullable: false,
+            args: { // mutation arguments
+                postId: schema.intArg({ required: true }),
+                title: schema.stringArg({ required: true }),
+                body: schema.stringArg({ required: true }),
+            },
+            resolve(_root, args, ctx) { // mutation resolver
+                return ctx.db.post.update({
+                    where: {
+                        id: args.postId
+                    },
+                    data : {
+                        title: args.title,
+                        body: args.body
+                    }
+                });
+            }
+        });
+    }
+})
+
 // delete one draft...
 schema.extendType({
     type: 'Mutation',
