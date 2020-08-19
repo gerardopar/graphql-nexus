@@ -1,8 +1,8 @@
 import { schema } from 'nexus';
 
-schema.objectType({
-    name: 'Post',
-    definition(t) {
+schema.objectType({ // * object Type based off (schema.prisma)
+    name: 'Post', // type name
+    definition(t) { // type definitions
         t.model.id()
         t.model.title()
         t.model.body()
@@ -13,22 +13,23 @@ schema.objectType({
     },
 });
 
-schema.extendType({
+schema.extendType({ // * auto generated queries
     type: 'Query',
     definition(t) {
         t.crud.post()
     }
 });
 
-// query drafts (un published posts)
+
+// * query drafts (un published posts)
 schema.extendType({
     type: 'Query',
     definition(t) {
-        t.field('drafts', { // query name
+        t.field('drafts', { // field name
             nullable: false,
             type: 'Post', // object type
             list: true,
-            resolve(_root, args, ctx) { 
+            resolve(_root, args, ctx) { // query resolver
                 return ctx.db.post.findMany({ where: { published: false } });
             }
         })
@@ -50,10 +51,11 @@ schema.extendType({
     },
 });
 
-schema.extendType({
+schema.extendType({ // * auto generated mutations
     type: 'Mutation',
     definition(t) {
         t.crud.createOnePost()
+        t.crud.deleteOnePost()
     }
 });
 
@@ -70,7 +72,7 @@ schema.extendType({
                 body: schema.stringArg({ required: true })
             },
             resolve(_root, args, ctx) {
-                return ctx.db.post.createOne({ data: {
+                return ctx.db.post.create({ data: {
                     title: args.title,
                     body: args.body,
                     published: false,
@@ -95,13 +97,34 @@ schema.extendType({
             args: { // mutation arguments
                 draftId: schema.intArg({ required: true })
             },
-            resolve(_root, args, ctx) {
+            resolve(_root, args, ctx) { // mutation resolver
                 return ctx.db.post.update({
                     where: {
                         id: args.draftId
                     },
                     data: {
                         published: true
+                    }
+                });
+            }
+        });
+    }
+});
+
+// delete one draft...
+schema.extendType({
+    type: 'Mutation',
+    definition(t) {
+        t.field('deleteOneDraft', {
+            type: 'Post',
+            nullable: false,
+            args: { // mutation arguments
+                draftId: schema.intArg({ required: true })
+            },
+            resolve(_root, args, ctx) { // mutation resolver
+                return ctx.db.post.delete({
+                    where: {
+                        id: args.draftId
                     }
                 });
             }

@@ -1,8 +1,8 @@
 import { schema } from 'nexus';
 
-schema.objectType({
+schema.objectType({ // * object Type based off (schema.prisma)
     name: 'User',
-    definition(t) {
+    definition(t) { // type definitions
         t.model.id()
         t.model.firstName()
         t.model.lastName()
@@ -11,7 +11,7 @@ schema.objectType({
     }
 });
 
-schema.extendType({
+schema.extendType({ // * auto generated queries
     type: 'Query',
     definition(t) {
         t.crud.user()
@@ -19,24 +19,9 @@ schema.extendType({
     }
 });
 
-schema.extendType({
+schema.extendType({ // * auto generated mutations
     type: 'Mutation',
     definition(t) {
         t.crud.createOneUser()
     }
 });
-
-// schema.queryType({
-//     definition(t) {
-//         t.crud.user()
-//         t.crud.users({
-//             ordering: true,
-//         })
-//     },
-// })
-
-// schema.mutationType({
-//     definition(t) {
-//         t.crud.createOneUser()
-//     },
-// })

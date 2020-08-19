@@ -58,7 +58,11 @@ type Mutation {
   createOneDraft(authorId: Int!, body: String!, title: String!): Post!
   createOnePost(data: PostCreateInput!): Post!
   createOneUser(data: UserCreateInput!): User!
+  deleteOneComment(where: CommentWhereUniqueInput!): Comment
+  deleteOneDraft(draftId: Int!): Post!
+  deleteOnePost(where: PostWhereUniqueInput!): Post
   publishOneDraft(draftId: Int!): Post!
+  updateOneComment(commentId: Int!, text: String!): Comment!
 }
 
 type Post {
