@@ -1,5 +1,3 @@
-# YING api v2
-
 ###### Rebase source: the final code of the GraphQL API built in the [Nexus tutorial](https://www.nexusjs.org/#/tutorial/introduction) 🚀.
 
 ## Usage
